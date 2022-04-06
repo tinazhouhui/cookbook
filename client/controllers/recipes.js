@@ -5,7 +5,8 @@ async function getAllRecipes(req, res) {
     const output = await Recipes.RecipesModel.find();
     res.send(output);
   } catch (err) {
-    console.error(err.stack);
+    res.status(404);
+    res.send({error: err.stack});
   }
 }
 
@@ -33,4 +34,15 @@ async function deleteRecipe(req, res) {
   }
 }
 
-module.exports = {getAllRecipes, saveNewRecipe, deleteRecipe}
+async function updateRecipe (req, res) {
+  try {
+    const _id = req.params;
+    const output = await Recipes.RecipesModel.findOneAndUpdate(_id, req.body);
+    res.send(output);
+  } catch (err) {
+    res.status(404);
+    res.send({error: err.stack});
+  }
+}
+
+module.exports = {getAllRecipes, saveNewRecipe, deleteRecipe, updateRecipe}
