@@ -1,5 +1,14 @@
 .recipeContainer {
   margin: 10px;
+  padding: 10px;
+  border: 2px solid gray;
+  transition: transform 400ms;
+}
+
+.recipeContainer:hover {
+  transform: scale(1.1);
+  transition: 200ms;
+  cursor: pointer;
 }
 
 .category {

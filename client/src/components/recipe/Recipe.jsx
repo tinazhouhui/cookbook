@@ -11,11 +11,19 @@ function Recipe(props) {
     return <span className={styles.category}>{category}</span>
   })
 
+  const descriptionHtml = description.map((step, index) => {
+    return <li key={index}>{step}</li>
+  })
+
   return (
     <div className={styles.recipeContainer}>
       <h2>{title}</h2>
       {categoriesHtml}
-      <p>{description}</p>
+      <div className={styles.stepList}>
+        <ol>
+          {descriptionHtml}
+        </ol>
+      </div>
     </div>
   );
 }
