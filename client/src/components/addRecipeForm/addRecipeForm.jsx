@@ -1,19 +1,16 @@
 import React, {useState} from 'react';
 import './addRecipeForm.module.css';
 import {saveRecipe} from "../../services/api";
+import {useForm} from "react-hook-form";
+
 
 function AddRecipeForm() {
-  const [title, setTitle] = useState("");
-  const [categories, setCategories] = useState([]);
-  const [description, setDescription] = useState([]);
-  const [ingredients, setIngredients] = useState([]);
-
-
+  const {register, handleSubmit} = useForm();
 
   const stepHtml =(id) => (
     <div key={id}>
-      <label htmlFor='step'>{id}.</label>
-      <input id='step' type='text' value={description[id]} onChange={(event) => handleDescription(event, id)} />
+      <label htmlFor='step'>{id+1}.</label>
+      <input id='step' type='text' {...register(`${id}`)} />
     </div>)
 
   const [index, setIndex] = useState(0);
@@ -26,36 +23,22 @@ function AddRecipeForm() {
     setStep([...steps, stepHtml(newIndex)])
   }
 
-  function handleTitle(event) {
-    event.preventDefault();
-    setTitle(event.target.value)
-  }
 
-  function handleIngredients(event) {
+  function onSubmit(data, event) {
     event.preventDefault();
-    setIngredients(event.target.value.split(','));
-  }
 
-  function handleCategories(event) {
-    event.preventDefault();
-    setCategories(event.target.value.split(','));
-  }
+    const {categories, ingredients, title, ...steps} = data
+    const description = Object.values(steps).reduce((acc, step) => {
+      acc.push(step);
+      return acc;
+    }, [])
 
-  function handleDescription(event,elIndex){
-    event.preventDefault();
-    const descCopy = [...description]
-    descCopy[elIndex] = event.target.value
-    setDescription(descCopy)
-  }
-
-  function handleSubmit(event) {
-    event.preventDefault();
     const newRecipe = {
-      title: title,
-      description,
-      categories,
-      ingredients
-    };
+      title,
+      categories: categories.split(','),
+      ingredients: ingredients.split(','),
+      description
+    }
 
     saveRecipe(newRecipe)
       .then(res => console.log(res))
@@ -63,18 +46,18 @@ function AddRecipeForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <div>
         <label htmlFor='title'>Name</label>
-        <input id='title' type='text' value={title} onChange={handleTitle}/>
+        <input id='title' type='text' {...register("title")}/>
       </div>
       <div>
         <label htmlFor='categories'>Categories</label>
-        <input id='categories' type='text' value={categories} placeholder="separate with comma" onChange={handleCategories}/>
+        <input id='categories' type='text' placeholder="separate with comma" {...register("categories")}/>
       </div>
       <div>
         <label htmlFor='ingredients'>Ingredients</label>
-        <input id='ingredients' type='text' value={ingredients} placeholder="separate with comma" onChange={handleIngredients}/>
+        <input id='ingredients' type='text' placeholder="separate with comma" {...register("ingredients")}/>
       </div>
       <div>{steps}
         <button onClick={(event) => addStep(event)}>Add step</button>
