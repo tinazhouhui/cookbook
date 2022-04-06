@@ -1,9 +1,11 @@
+'use strict';
+
 const {Router} = require('express');
 
 const router = Router();
 
-router.get('/dummy', (req, res) => {
-  console.log(req, res)
+router.get('/', (req, res) => {
+  res.send({msg: 'Get'});
 });
 
 
