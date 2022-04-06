@@ -13,6 +13,7 @@ async function getAllRecipes(req, res) {
 async function saveNewRecipe(req, res) {
   try {
     const output = await Recipes.newRecipe(req.body);
+
     res.send(output);
   } catch (err) {
     res.status(404);

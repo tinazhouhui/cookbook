@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const recipeSchema = new mongoose.Schema({
   title: String,
   categories: [String],
-  description: {stepId: Map, of: Number},
+  description: [String],
   ingredients: [String],
   dateCreated: String,
 })
