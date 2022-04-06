@@ -21,8 +21,6 @@ async function saveNewRecipe(req, res) {
   }
 }
 
-module.exports = {saveNewRecipe}
-
 async function deleteRecipe(req, res) {
   const _id = req.params
 

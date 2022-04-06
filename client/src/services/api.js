@@ -9,8 +9,9 @@ function fetcher(endpoint, method = 'GET', body = undefined) {
     }
   }
 
-  if (body) {options.body = JSON.stringify(body)};
-
+  if (body) {
+    options.body = JSON.stringify(body)
+  }
 
   return fetch(`${rootUrl}/${endpoint}`, options)
 }
@@ -26,6 +27,32 @@ export const getAllRecipes = async () => {
     }
     return response.json();
 
+  } catch (err) {
+    console.error(err.stack);
+  }
+}
+
+export const saveRecipe = async (newRecipe) => {
+  try {
+    const response = await fetcher('recipes', 'POST', newRecipe)
+    if (response.status !== 200) {
+      const body = await response.json();
+      console.error(body)
+    }
+    return response.json();
+  } catch (err) {
+    console.error(err.stack);
+  }
+}
+
+export const deleteRecipe = async (id) => {
+  try {
+    const response = await fetcher(`recipes/${id}`, 'DELETE')
+    if (response.status !== 200) {
+      const body = await response.json();
+      console.error(body)
+    }
+    return response.json();
   } catch (err) {
     console.error(err.stack);
   }

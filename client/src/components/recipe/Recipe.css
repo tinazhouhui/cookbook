@@ -1,7 +1,9 @@
 .recipeContainer {
+  margin: 20px;
   padding: 10px;
   border: 2px solid gray;
   transition: transform 400ms;
+  min-width: 250px;
 }
 
 .recipeContainer:hover {
@@ -16,4 +18,14 @@
   margin: 5px;
   color: white;
   border-radius: 3px;
+}
+
+.recipeHeader {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+h2 {
+  margin: 0;
 }
