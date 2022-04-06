@@ -9,6 +9,7 @@ const router = Router();
 //   res.send({msg: 'Get'});
 // });
 
+router.get('/recipes', recipesController.getAllRecipes);
 router.post('/recipes', recipesController.saveNewRecipe);
 router.delete('/recipes/:_id', recipesController.deleteRecipe);
 

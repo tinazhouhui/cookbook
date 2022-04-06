@@ -1,9 +1,18 @@
 const Recipes = require('../models/recipes');
 
-async function saveNewRecipe (req, res) {
+async function getAllRecipes(req, res) {
   try {
-    const output = await Recipes.newRecipe(req.body)
-        res.send(output);
+    const output = await Recipes.RecipesModel.find();
+    res.send(output);
+  } catch (err) {
+    console.error(err.stack);
+  }
+}
+
+async function saveNewRecipe(req, res) {
+  try {
+    const output = await Recipes.newRecipe(req.body);
+    res.send(output);
   } catch (err) {
     res.status(404);
     res.send({error: err.stack})
@@ -12,11 +21,11 @@ async function saveNewRecipe (req, res) {
 
 module.exports = {saveNewRecipe}
 
-async function deleteRecipe (req, res) {
+async function deleteRecipe(req, res) {
   const _id = req.params
 
   try {
-    const output = await Recipes.RecipesModel.findOneAndDelete(_id)
+    const output = await Recipes.RecipesModel.findOneAndDelete(_id);
     res.send(output);
   } catch (err) {
     res.status(404);
@@ -24,4 +33,4 @@ async function deleteRecipe (req, res) {
   }
 }
 
-module.exports = {saveNewRecipe, deleteRecipe}
+module.exports = {getAllRecipes, saveNewRecipe, deleteRecipe}
