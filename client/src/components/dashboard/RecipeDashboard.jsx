@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import {getAllRecipes} from "../services/api";
-import Recipe from "./Recipe";
+import {getAllRecipes} from "../../services/api";
+import Recipe from "../recipe/Recipe";
+// import './Dashboard.module.css';
+import styles from './Dashboard.module.css'
 
 function RecipeDashboard() {
 
@@ -12,10 +14,9 @@ function RecipeDashboard() {
   }, [])
 
   return (
-    <>
-      <div>Recipe Dashboard</div>
+    <div className={styles.dashboard}>
       {allRecipes.map(recipe => <Recipe key={recipe._id} recipe={recipe}/>)}
-    </>
+    </div>
   );
 }
 

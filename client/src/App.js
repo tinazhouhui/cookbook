@@ -1,5 +1,5 @@
 import './App.css';
-import RecipeDashboard from "./components/RecipeDashboard";
+import RecipeDashboard from "./components/dashboard/RecipeDashboard";
 
 function App() {
   return (
