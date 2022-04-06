@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './Recipe.module.css';
+import './Recipe.css';
 
 
 function Recipe(props) {
@@ -8,7 +8,7 @@ function Recipe(props) {
   const {title, description, categories, ingredients} = recipe
 
   const categoriesHtml = categories.map(category => {
-    return <span className={styles.category}>{category}</span>
+    return <span className="category">{category}</span>
   })
 
   const descriptionHtml = description.map((step, index) => {
@@ -16,10 +16,10 @@ function Recipe(props) {
   })
 
   return (
-    <div className={styles.recipeContainer}>
+    <div className="recipeContainer">
       <h2>{title}</h2>
       {categoriesHtml}
-      <div className={styles.stepList}>
+      <div className="stepList">
         <ol>
           {descriptionHtml}
         </ol>

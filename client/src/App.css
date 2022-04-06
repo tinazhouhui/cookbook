@@ -1,3 +1,11 @@
 .App {
   padding: 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+button {
+  min-height: 40px;
+  min-width: 100px;
+  font-size: 40px;
 }
