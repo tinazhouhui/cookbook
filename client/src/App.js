@@ -1,9 +1,11 @@
 import './App.css';
+import RecipeDashboard from "./components/RecipeDashboard";
 
 function App() {
   return (
     <div className="App">
-      <p>Hello</p>
+      <h1>My Cookbook</h1>
+      <RecipeDashboard/>
     </div>
   );
 }
