@@ -2,8 +2,6 @@
   padding: 30px;
 }
 
-button {
-  min-height: 40px;
-  font-size: 40px;
-  max-width: 50vw;
+h2 {
+  margin: 0;
 }

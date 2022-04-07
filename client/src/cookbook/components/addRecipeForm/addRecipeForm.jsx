@@ -1,18 +1,18 @@
 import React, {useState} from 'react';
-import './addRecipeForm.module.css';
+import styles from './addRecipeForm.module.css';
 import {saveRecipe} from "../../../services/api";
 import {useForm} from "react-hook-form";
 
 
 function AddRecipeForm(props) {
-  const { setRecipes, setShowRecipe } = props
+  const {setRecipes, setShowRecipe} = props
 
-  const {register, handleSubmit, formState: { isDirty, isValid }, reset } = useForm({ mode: "onChange" });
+  const {register, handleSubmit, formState: {isDirty, isValid}, reset} = useForm({mode: "onChange"});
 
-  const stepHtml =(id) => (
+  const stepHtml = (id) => (
     <div key={id}>
-      <label htmlFor='step'>{id+1}.</label>
-      <input id='step' type='text' {...register(`${id}`, { required: true})} />
+      <label htmlFor='step'>{id + 1}.</label>
+      <input className={styles.inputField} id='step' type='text' {...register(`${id}`, {required: true})} />
     </div>)
 
   const [index, setIndex] = useState(0);
@@ -25,9 +25,9 @@ function AddRecipeForm(props) {
     setStep([...steps, stepHtml(newIndex)])
   }
 
-
   function onSubmit(data) {
     const {categories, ingredients, title, ...steps} = data
+    console.log(data)
     const description = Object.values(steps).reduce((acc, step) => {
       acc.push(step);
       return acc;
@@ -49,28 +49,30 @@ function AddRecipeForm(props) {
       .catch(err => console.error(err.stack));
   }
 
-  function updateRecipes (newRecipe) {
+  function updateRecipes(newRecipe) {
     setRecipes(prev => [...prev, newRecipe])
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form className={styles.addRecipeForm} onSubmit={handleSubmit(onSubmit)}>
       <div>
         <label htmlFor='title'>Name</label>
-        <input id='title' type='text' {...register("title", { required: true})}/>
+        <input className={styles.inputField} id='title' type='text' {...register("title", {required: true})}/>
       </div>
       <div>
         <label htmlFor='categories'>Categories</label>
-        <input id='categories' type='text' placeholder="separate with comma" {...register("categories", { required: true})}/>
+        <input className={styles.inputField} id='categories' type='text'
+               placeholder="separate with comma" {...register("categories", {required: true})}/>
       </div>
       <div>
         <label htmlFor='ingredients'>Ingredients</label>
-        <input id='ingredients' type='text' placeholder="separate with comma" {...register("ingredients", { required: true})}/>
+        <input className={styles.inputField} id='ingredients' type='text'
+               placeholder="separate with comma" {...register("ingredients", {required: true})}/>
       </div>
-      <div>{steps}
-        <button onClick={(event) => addStep(event)}>Add step</button>
-      </div>
-      <button type='submit' disabled={!isDirty || !isValid} >Save recipe</button>
+      {steps}
+      <button className={styles.addStep} onClick={(event) => addStep(event)}>+</button>
+
+      <button className={styles.saveRecipe} type='submit' disabled={!isDirty || !isValid}>Save recipe</button>
     </form>
   );
 }

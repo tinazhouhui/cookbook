@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import RecipeDashboard from "./components/dashboard/RecipeDashboard";
 import AddRecipeForm from "./components/addRecipeForm/addRecipeForm";
 import {getAllRecipes} from "../services/api";
-import './Cookbook.css';
+import styles from './Cookbook.module.css';
 import Spinner from "../components/spinner/Spinner";
 
 function Cookbook() {
@@ -19,14 +19,14 @@ function Cookbook() {
 
 
   return (
-    <div className="container">
+    <div className={styles.container}>
       <h1>My Cookbook</h1>
       {isLoading ? (
         <div>
           <Spinner/>
         </div>
       ) : (<RecipeDashboard allRecipes={allRecipes} setRecipes={setAllRecipes}/>)}
-      <button onClick={() => setShowRecipe(!showRecipeForm)}>Add new recipe!</button>
+      <button className={`${styles.addRecipeButton} ${styles.pulse}`} onClick={() => setShowRecipe(!showRecipeForm)}>Add new recipe!</button>
       {showRecipeForm && <AddRecipeForm setRecipes={setAllRecipes} setShowRecipe={setShowRecipe}/>}
     </div>
   );
