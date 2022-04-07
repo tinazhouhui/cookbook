@@ -7,7 +7,7 @@ import {useForm} from "react-hook-form";
 function AddRecipeForm(props) {
   const {setRecipes, setShowRecipe} = props
 
-  const {register, handleSubmit, formState: {isDirty, isValid}, reset} = useForm({mode: "onChange"});
+  const {register, handleSubmit, formState: {isDirty, isValid}, reset, unregister} = useForm({mode: "onChange"});
 
   const stepHtml = (id) => (
     <div key={id}>
@@ -23,6 +23,14 @@ function AddRecipeForm(props) {
     const newIndex = index + 1
     setIndex(newIndex);
     setStep([...steps, stepHtml(newIndex)])
+  }
+
+  function deleteStep(event) {
+    event.preventDefault();
+    const newIndex = index - 1
+    unregister(`${index}`)
+    setIndex(newIndex);
+    setStep(steps.slice(0, index))
   }
 
   function onSubmit(data) {
@@ -70,7 +78,8 @@ function AddRecipeForm(props) {
                placeholder="separate with comma" {...register("ingredients", {required: true})}/>
       </div>
       {steps}
-      <button className={styles.addStep} onClick={(event) => addStep(event)}>+</button>
+      <button className={styles.addStep} onClick={addStep}>+</button>
+      <button className={styles.addStep} onClick={deleteStep}>-</button>
 
       <button className={styles.saveRecipe} type='submit' disabled={!isDirty || !isValid}>Save recipe</button>
     </form>

@@ -57,3 +57,16 @@ export const deleteRecipe = async (id) => {
     console.error(err.stack);
   }
 }
+
+export const getRecipe = async (id) => {
+  try {
+    const response = await fetcher(`recipes/${id}`, 'GET')
+    if (response.status !== 200) {
+      const body = await response.json();
+      console.error(body)
+    }
+    return response.json();
+  } catch (err) {
+    console.error(err.stack);
+  }
+}

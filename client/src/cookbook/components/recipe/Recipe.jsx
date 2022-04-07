@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './Recipe.module.css';
 import {deleteRecipe} from "../../../services/api";
+import {Link} from "react-router-dom";
 
 
 function Recipe(props) {
@@ -35,7 +36,7 @@ function Recipe(props) {
   return (
     <div className={styles.recipeContainer}>
       <div className={styles.recipeHeader}>
-        <h2>{title}</h2>
+        <h2><Link to={`/${_id}`}>{title}</Link></h2>
         <button onClick={handleDelete}>X</button>
       </div>
       {categoriesHtml}
