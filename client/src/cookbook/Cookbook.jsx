@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import RecipeDashboard from "../components/dashboard/RecipeDashboard";
 import AddRecipeForm from "../components/addRecipeForm/addRecipeForm";
 import {getAllRecipes} from "../services/api";
+import './Cookbook.css';
 
 function Cookbook() {
   const [showRecipeForm, setShowRecipe] = useState(false);
@@ -15,11 +16,11 @@ function Cookbook() {
 
 
   return (
-    <div>
+    <div className="container">
       <h1>My Cookbook</h1>
-      <RecipeDashboard allRecipes={allRecipes}/>
+      <RecipeDashboard allRecipes={allRecipes} setRecipes={setAllRecipes}/>
       <button onClick={() => setShowRecipe(!showRecipeForm)}>Add new recipe!</button>
-      {showRecipeForm && <AddRecipeForm/>}
+      {showRecipeForm && <AddRecipeForm setRecipes={setAllRecipes} setShowRecipe={setShowRecipe}/>}
     </div>
   );
 }

@@ -4,7 +4,7 @@ import {deleteRecipe} from "../../services/api";
 
 
 function Recipe(props) {
-  const {recipe} = props
+  const {recipe, setRecipes} = props
 
   const {title, description, categories, ingredients, _id} = recipe
 
@@ -22,7 +22,14 @@ function Recipe(props) {
 
   function handleDelete () {
     deleteRecipe(_id)
-      .then(res => console.log(res))
+      .then(res => updateRecipes(res))
+      .catch(res => console.error(res))
+  }
+
+  function updateRecipes(delRecipe) {
+    setRecipes(prev => {
+      return prev.filter(recipe => recipe._id !== delRecipe._id);
+    })
   }
 
   return (
