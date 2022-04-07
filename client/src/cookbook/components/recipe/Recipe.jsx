@@ -1,6 +1,6 @@
 import React from 'react';
 import './Recipe.css';
-import {deleteRecipe} from "../../services/api";
+import {deleteRecipe} from "../../../services/api";
 
 
 function Recipe(props) {
