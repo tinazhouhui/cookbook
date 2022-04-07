@@ -1,13 +1,22 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from './addRecipeForm.module.css';
 import {saveRecipe} from "../../../services/api";
 import {useForm} from "react-hook-form";
 
 
 function AddRecipeForm(props) {
-  const {setRecipes, setShowRecipe} = props
+  const {setRecipes, setShowRecipe, defaultValues} = props
 
-  const {register, handleSubmit, formState: {isDirty, isValid}, reset, unregister} = useForm({mode: "onChange"});
+  const {register, handleSubmit, formState: {isDirty, isValid}, reset, unregister, setValue} = useForm({mode: "onChange"});
+
+    useEffect(()=> {
+      if (defaultValues){
+        setValue("title", defaultValues.title);
+        setValue("categories", JSON.stringify(defaultValues.categories));
+        setValue("ingredients", JSON.stringify(defaultValues.ingredients));
+        setValue("description", JSON.stringify(defaultValues.description));
+      }
+  }, [defaultValues])
 
   const stepHtml = (id) => (
     <div key={id}>
@@ -35,7 +44,6 @@ function AddRecipeForm(props) {
 
   function onSubmit(data) {
     const {categories, ingredients, title, ...steps} = data
-    console.log(data)
     const description = Object.values(steps).reduce((acc, step) => {
       acc.push(step);
       return acc;
@@ -78,8 +86,11 @@ function AddRecipeForm(props) {
                placeholder="separate with comma" {...register("ingredients", {required: true})}/>
       </div>
       {steps}
-      <button className={styles.addStep} onClick={addStep}>+</button>
-      <button className={styles.addStep} onClick={deleteStep}>-</button>
+
+      <div className={styles.stepsButtons}>
+        <button className={styles.addStep} onClick={deleteStep}>-</button>
+        <button className={styles.addStep} onClick={addStep}>+</button>
+      </div>
 
       <button className={styles.saveRecipe} type='submit' disabled={!isDirty || !isValid}>Save recipe</button>
     </form>

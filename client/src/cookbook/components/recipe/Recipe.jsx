@@ -2,12 +2,13 @@ import React from 'react';
 import styles from './Recipe.module.css';
 import {deleteRecipe} from "../../../services/api";
 import {Link} from "react-router-dom";
+import moment from "moment";
 
 
 function Recipe(props) {
   const {recipe, setRecipes} = props
 
-  const {title, description, categories, ingredients, _id} = recipe
+  const {title, description, categories, ingredients, _id, dateCreated} = recipe
 
   const categoriesHtml = categories.map((category, index) => {
     return <span key={index} className={styles.category}>{category}</span>
@@ -21,7 +22,7 @@ function Recipe(props) {
     return <li key={index}>{ingredient}</li>
   })
 
-  function handleDelete () {
+  function handleDelete() {
     deleteRecipe(_id)
       .then(res => updateRecipes(res))
       .catch(res => console.error(res))
@@ -35,8 +36,10 @@ function Recipe(props) {
 
   return (
     <div className={styles.recipeContainer}>
+      <p>Created: {moment(dateCreated).format("MMM Do YYYY")}</p>
       <div className={styles.recipeHeader}>
         <h2><Link to={`/${_id}`}>{title}</Link></h2>
+
         <button onClick={handleDelete}>X</button>
       </div>
       {categoriesHtml}
