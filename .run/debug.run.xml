@@ -1,0 +1,17 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="debug" type="js.build_tools.npm" nameIsGenerated="true">
+    <package-json value="$PROJECT_DIR$/server/package.json" />
+    <command value="run" />
+    <scripts>
+      <script value="debug" />
+    </scripts>
+    <node-interpreter value="docker-compose://[$PROJECT_DIR$/server/docker-compose.yml]:server/node" />
+    <envs>
+      <env name="DB_NAME" value="cookbook" />
+      <env name="DB_URI" value="mongodb://mongo:27017" />
+      <env name="PORT" value="5000" />
+      <env name="DB_PORT" value="27017" />
+    </envs>
+    <method v="2" />
+  </configuration>
+</component>

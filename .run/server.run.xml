@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="server" type="NodeJSConfigurationType" path-to-node="docker-compose://[$PROJECT_DIR$/server/docker-compose.yml]:server/node" path-to-js-file="server/index.js" working-dir="$PROJECT_DIR$">
+    <envs>
+      <env name="DB_NAME" value="cookbook" />
+      <env name="DB_URI" value="mongodb://mongo:27017" />
+      <env name="PORT" value="5000" />
+    </envs>
+    <method v="2" />
+  </configuration>
+</component>
