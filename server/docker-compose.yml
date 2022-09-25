@@ -1,0 +1,20 @@
+version: '3.8'
+services:
+  server:
+    image: 'node:16'
+    ports:
+      - ${PORT}:${PORT}
+      - "9229:9229"
+    env_file:
+      - .env
+    volumes:
+      - .:/server
+    working_dir: /server
+    command: bash -c 'npm install && npm start'
+
+  mongo:
+    image: 'mongo:5.0.6'
+    ports:
+      - ${DB_PORT}:${DB_PORT}
+    volumes:
+      - ./mongodb:/data/db
