@@ -10,6 +10,17 @@ async function getAllRecipes(req, res) {
   }
 }
 
+async function getRecipe(req, res) {
+  const _id = req.params;
+  try {
+    const output = await Recipes.RecipesModel.findOne(_id);
+    res.send(output);
+  } catch (err) {
+    res.status(404);
+    res.send({error: err.stack});
+  }
+}
+
 async function saveNewRecipe(req, res) {
   try {
     const output = await Recipes.newRecipe(req.body);
@@ -33,7 +44,7 @@ async function deleteRecipe(req, res) {
   }
 }
 
-async function updateRecipe (req, res) {
+async function updateRecipe(req, res) {
   try {
     const _id = req.params;
     const output = await Recipes.RecipesModel.findOneAndUpdate(_id, req.body);
@@ -44,4 +55,4 @@ async function updateRecipe (req, res) {
   }
 }
 
-module.exports = {getAllRecipes, saveNewRecipe, deleteRecipe, updateRecipe}
+module.exports = {getAllRecipes, saveNewRecipe, deleteRecipe, updateRecipe, getRecipe}
